@@ -1,7 +1,7 @@
 <?php
 use PrestaShop\PrestaShop\Core\Module\WidgetInterface;
 
-class thnxblogrecentposts extends Module implements WidgetInterface 
+class ThnxBlogRecentPosts extends Module implements WidgetInterface
 {
     public $css_files = array(
         array(
@@ -35,7 +35,7 @@ class thnxblogrecentposts extends Module implements WidgetInterface
         $this->ps_versions_compliancy = array('min' => '1.7', 'max' => _PS_VERSION_);
     }
     // For installation service
-    public function install() 
+    public function install()
     {
         if (!parent::install()
             // || !$this->registerHook('displayheader')
@@ -48,15 +48,16 @@ class thnxblogrecentposts extends Module implements WidgetInterface
             return false;
         }
         $languages = Language::getLanguages(false);
-            foreach ($languages as $lang) {
-                Configuration::updateValue('thnxbrp_title_'.$lang['id_lang'],"Recent Posts");
-                Configuration::updateValue('thnxbrp_subtext_'.$lang['id_lang'],"All Recent Posts From thnxBlog");
-            }
-            Configuration::updateValue('thnxbrp_postcount',4);
+        foreach ($languages as $lang) {
+            Configuration::updateValue('thnxbrp_title_'.$lang['id_lang'], "Recent Posts");
+            Configuration::updateValue('thnxbrp_subtext_'.$lang['id_lang'], "All Recent Posts From thnxBlog");
+        }
+            Configuration::updateValue('thnxbrp_postcount', 4);
             return true;
     }
     // For uninstallation service
-    public function uninstall() {
+    public function uninstall()
+    {
         if (!parent::uninstall()
             ) {
             return false;
@@ -121,10 +122,10 @@ class thnxblogrecentposts extends Module implements WidgetInterface
         $helper->toolbar_scroll = true;
         $helper->submit_action = 'save' . $this->name;
         $languages = Language::getLanguages(false);
-            foreach ($languages as $lang) {
-                $helper->fields_value['thnxbrp_title'][$lang['id_lang']] = Configuration::get('thnxbrp_title_'.$lang['id_lang']);
-                $helper->fields_value['thnxbrp_subtext'][$lang['id_lang']] = Configuration::get('thnxbrp_subtext_'.$lang['id_lang']);
-            }
+        foreach ($languages as $lang) {
+            $helper->fields_value['thnxbrp_title'][$lang['id_lang']] = Configuration::get('thnxbrp_title_'.$lang['id_lang']);
+            $helper->fields_value['thnxbrp_subtext'][$lang['id_lang']] = Configuration::get('thnxbrp_subtext_'.$lang['id_lang']);
+        }
             $helper->fields_value['thnxbrp_postcount'] = Configuration::get('thnxbrp_postcount');
         return $helper;
     }
@@ -134,11 +135,11 @@ class thnxblogrecentposts extends Module implements WidgetInterface
         $html = '';
         if (Tools::isSubmit('save' . $this->name)) {
             $languages = Language::getLanguages(false);
-               foreach ($languages as $lang) {
-                    Configuration::updateValue('thnxbrp_title_'.$lang['id_lang'],Tools::getvalue('thnxbrp_title_'.$lang['id_lang']));
-                    Configuration::updateValue('thnxbrp_subtext_'.$lang['id_lang'],Tools::getvalue('thnxbrp_subtext_'.$lang['id_lang']));
-               }
-                Configuration::updateValue('thnxbrp_postcount',Tools::getvalue('thnxbrp_postcount'));
+            foreach ($languages as $lang) {
+                Configuration::updateValue('thnxbrp_title_'.$lang['id_lang'], Tools::getvalue('thnxbrp_title_'.$lang['id_lang']));
+                Configuration::updateValue('thnxbrp_subtext_'.$lang['id_lang'], Tools::getvalue('thnxbrp_subtext_'.$lang['id_lang']));
+            }
+                Configuration::updateValue('thnxbrp_postcount', Tools::getvalue('thnxbrp_postcount'));
         }
         $helper = $this->SettingForm();
         $html .= $helper->generateForm($this->fields_form);
@@ -180,12 +181,12 @@ class thnxblogrecentposts extends Module implements WidgetInterface
                         if (isset($css_file['load_theme']) && ($css_file['load_theme'] == true)) {
                             $theme_file_src = 'themes/'.$theme_name.'/assets/css/'.$css_file['src'];
                             if (self::isEmptyFileContet($root_path.$theme_file_src)) {
-                                $this->context->controller->registerStylesheet($css_file['key'], $theme_file_src , ['media' => $media, 'priority' => $priority]);
+                                $this->context->controller->registerStylesheet($css_file['key'], $theme_file_src, ['media' => $media, 'priority' => $priority]);
                             }
                         } else {
                             $module_file_src = 'modules/'.$this->name.'/css/'.$css_file['src'];
                             if (self::isEmptyFileContet($root_path.$module_file_src)) {
-                                $this->context->controller->registerStylesheet($css_file['key'], $module_file_src , ['media' => $media, 'priority' => $priority]);
+                                $this->context->controller->registerStylesheet($css_file['key'], $module_file_src, ['media' => $media, 'priority' => $priority]);
                             }
                         }
                     }
@@ -214,12 +215,12 @@ class thnxblogrecentposts extends Module implements WidgetInterface
                         if (isset($js_file['load_theme']) && ($js_file['load_theme'] == true)) {
                             $theme_file_src = 'themes/'.$theme_name.'/assets/js/'.$js_file['src'];
                             if (self::isEmptyFileContet($root_path.$theme_file_src)) {
-                                $this->context->controller->registerJavascript($js_file['key'], $theme_file_src , ['position' => $position, 'priority' => $priority]);
+                                $this->context->controller->registerJavascript($js_file['key'], $theme_file_src, ['position' => $position, 'priority' => $priority]);
                             }
                         } else {
                             $module_file_src = 'modules/'.$this->name.'/js/'.$js_file['src'];
                             if (self::isEmptyFileContet($root_path.$module_file_src)) {
-                                $this->context->controller->registerJavascript($js_file['key'], $module_file_src , ['position' => $position, 'priority' => $priority]);
+                                $this->context->controller->registerJavascript($js_file['key'], $module_file_src, ['position' => $position, 'priority' => $priority]);
                             }
                         }
                     }
@@ -228,7 +229,7 @@ class thnxblogrecentposts extends Module implements WidgetInterface
         }
         return true;
     }
-    public function hookdisplayheader($params) 
+    public function hookdisplayheader($params)
     {
         $this->Register_Css();
         $this->Register_Js();
@@ -236,8 +237,8 @@ class thnxblogrecentposts extends Module implements WidgetInterface
     public function renderWidget($hookName = null, array $configuration = [])
     {
         if (Module::isInstalled('thnxblog') && Module::isEnabled('thnxblog')) {
-            $this->smarty->assign($this->getWidgetVariables($hookName,$configuration));
-            return $this->fetch('module:'.$this->name.'/views/templates/front/'.$this->name.'.tpl');    
+            $this->smarty->assign($this->getWidgetVariables($hookName, $configuration));
+            return $this->fetch('module:'.$this->name.'/views/templates/front/'.$this->name.'.tpl');
         } else {
             return false;
         }
